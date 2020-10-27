@@ -1,0 +1,9 @@
+<h1>Info about chosen pokemon </h1>
+<img src="<%= pokemon.sprites.front_default %>" width=300>
+<br>
+<h2><%= pokemon.name %></h2>
+<br>
+<form method="POST" action="/faves">
+    <input type="hidden" name="title" value=<%=pokemon.id%>">
+    <!-- <input type="submit" value="Add to Favorites"> -->
+</form>
