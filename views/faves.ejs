@@ -3,6 +3,10 @@
 <%favorites.forEach(favoritePoke=>{%>
     <li>
     <%=favoritePoke.name %>
+    <form method="POST" action="/pokemon/<%=favoritePoke.id%>/?_method=DELETE">
+        <input type="submit" value="Delete">
+    </form>
 </li>
 </div>
 <%})%>
+

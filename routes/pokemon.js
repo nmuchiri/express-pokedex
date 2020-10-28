@@ -9,6 +9,7 @@ router.get('/', function(req, res) {
   // TODO: Get all records from the DB and render to view
   db.pokemon.findAll()
   .then(favorites =>{
+    console.log(favorites)
       res.render('faves', {favorites: favorites})
   })
   // res.send('Render a page of favorites here');
@@ -17,12 +18,16 @@ router.get('/', function(req, res) {
 // POST /pokemon - receive the name of a pokemon and add it to the database
 router.post('/', function(req, res) {
   // TODO: Get form data and add a new record to DB
-  db.pokemon.findOrCreate(req.body)
-    .then(createdFave=>{
-    res.redirect('/pokemon')
-    // res.send(createdFave)        
+  // console.log(req.body.name)
+  db.pokemon.findOrCreate({
+        where:{name: req.body.name
+          
+        }
+  
     })
-  // res.send(req.body);
+    .then(([foundOrCreatedUser, created])=>{
+    res.redirect('/pokemon')        
+    })
 });
 
 router.get('/:id', function(req, res){
@@ -36,6 +41,13 @@ router.get('/:id', function(req, res){
       res.render('show', {pokemon: response.data})
   })
 })
-
+router.delete('/:idx' , (req, res)=>{
+  console.log(req.params.idx)
+  db.pokemon.destroy({
+    where: {id: req.params.idx}
+  }).then(()=>{
+    res.redirect('/pokemon')
+  })
+})
 
 module.exports = router;
